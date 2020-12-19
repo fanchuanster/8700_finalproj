@@ -24,6 +24,7 @@ import aima.core.search.framework.SearchForActions;
 import aima.core.search.framework.SearchForStates;
 import aima.core.search.framework.problem.Problem;
 import aima.core.search.framework.qsearch.GraphSearch;
+import aima.core.search.framework.qsearch.TreeSearch;
 import aima.core.search.informed.AStarEvaluationFunction;
 import aima.core.search.informed.AStarSearch;
 import aima.core.search.informed.GreedyBestFirstEvaluationFunction;
@@ -60,13 +61,7 @@ public class Program {
 			testEightPuzzle(search, new EightPuzzleBoard(state));
 		}
 	}
-		
-	private static void printActions(List<Action> actions) {
-		for (int i = 0; i < actions.size(); i++) {
-			String action = actions.get(i).toString();
-			System.out.println(action);
-		}
-	}
+
 	private static void printInstrumentation(Properties properties) {
 		properties.keySet().stream().map(key -> key + "=" + properties.get(key)+"\t").forEach(System.out::print);
 	}
@@ -115,6 +110,7 @@ public class Program {
 		
 //		testEightPuzzle(new RecursiveBestFirstSearch(new AStarEvaluationFunction(hf)), initstate);
 		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
+		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
 //		testEightPuzzle(new GreedyBestFirstSearch(new GraphSearch(), hf), initstate);
 //		
 //		testEightPuzzle(new BreadthFirstSearch(new GraphSearch()), initstate);
