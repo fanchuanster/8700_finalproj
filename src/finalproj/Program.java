@@ -1,8 +1,16 @@
 package finalproj;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import aima.core.agent.Action;
 import aima.core.environment.eightpuzzle.BidirectionalEightPuzzleProblem;
@@ -39,7 +47,6 @@ public class Program {
 
 		try {
 			SearchAgent agent = new SearchAgent(problem, search);
-			
 			printInstrumentation(agent.getInstrumentation());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,21 +55,12 @@ public class Program {
 		System.out.println();
 	}
 	
-	private static void eightPuzzleAStarManhattanDemo(EightPuzzleBoard initialState) {
-		System.out.println("\nEightPuzzleDemo AStar Search (ManhattanHeursitic)-->");
-		try {
-			Problem problem = new Problem(initialState, EightPuzzleFunctionFactory.getActionsFunction(),
-					EightPuzzleFunctionFactory.getResultFunction(), new EightPuzzleGoalTest());
-			SearchForActions search = new AStarSearch(new GraphSearch(), new ManhattanHeuristicFunction());
-			SearchAgent agent = new SearchAgent(problem, search);
-			printActions(agent.getActions());
-			printInstrumentation(agent.getInstrumentation());
-		} catch (Exception e) {
-			e.printStackTrace();
+	private static void testEightPuzzles(SearchForActions search, int[][] initialStates) {
+		for (final int[] state:initialStates) {
+			testEightPuzzle(search, new EightPuzzleBoard(state));
 		}
-
 	}
-	
+		
 	private static void printActions(List<Action> actions) {
 		for (int i = 0; i < actions.size(); i++) {
 			String action = actions.get(i).toString();
@@ -81,32 +79,42 @@ public class Program {
 //	1 8 7
 //	4 3 2 
 //	6 5 0
-//	
-//	solvable initial states
-//	7 4 1
-//	5 3 0 
-//	2 6 8
-//	
-//	7, 1, 8,
-//	0, 4, 6, 
-//	2, 3, 5
+
+	private static int[][] getInitialStates(int n) {
+		final String STATES_FILE = "resources/solvable_initial_states.txt";
+		
+		try {
+			FileInputStream is = new FileInputStream(STATES_FILE);
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+			
+			int[][] states = new int[n][];
+			String line = null;
+			int count = 0;
+			while ((line = bufferedReader.readLine()) != null && count < n) {
+				IntStream intSteam = line.chars().map((c) -> (int)c - (int)'0');
+				states[count] = intSteam.toArray();
+				count++;
+			}
+			bufferedReader.close();
+			return states;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	public static void main(String[] args) {
 		
 		ManhattanHeuristicFunction hf = new ManhattanHeuristicFunction();
-//		187432650
-		EightPuzzleBoard unresolvable_initstate = new EightPuzzleBoard(new int[] {1, 8, 7,
-				4, 3, 2, 
-				6, 5, 0});
-//		718046235
-		EightPuzzleBoard solvable_initstate = new EightPuzzleBoard(new int[] { 7, 1, 8,
-				0, 4, 6, 2, 3, 5 });
 		
-		EightPuzzleBoard initstate = solvable_initstate;
-		
-		System.out.println("Initial state \n" + initstate.toString());
+		int[][] states = getInitialStates(2);
 		
 //		testEightPuzzle(new RecursiveBestFirstSearch(new AStarEvaluationFunction(hf)), initstate);
-		testEightPuzzle(new AStarSearch(new GraphSearch(), hf), initstate);
+		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
 //		testEightPuzzle(new GreedyBestFirstSearch(new GraphSearch(), hf), initstate);
 //		
 //		testEightPuzzle(new BreadthFirstSearch(new GraphSearch()), initstate);
