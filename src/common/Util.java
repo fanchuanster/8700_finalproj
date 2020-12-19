@@ -1,4 +1,4 @@
-package assignment2;
+package common;
 
 import java.util.Arrays;
 import java.util.Collections;

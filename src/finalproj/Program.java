@@ -24,7 +24,7 @@ import aima.core.search.informed.RecursiveBestFirstSearch;
 import aima.core.search.local.HillClimbingSearch;
 import aima.core.search.local.SimulatedAnnealingSearch;
 import aima.core.search.uninformed.BreadthFirstSearch;
-import assignment2.Util;
+import common.Util;
 
 public class Program {
 	
