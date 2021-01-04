@@ -117,9 +117,11 @@ public class Program {
 		
 		int[][] states = getInitialStates(1);
 		
-		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(misplacedhf)), states);
+//		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(misplacedhf)), states);
 //		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
 		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
+		testEightPuzzles(new AStarSearch(new TreeSearch(), misplacedhf), states);
+		
 		testEightPuzzles(new BreadthFirstSearch(), states);
 //		testEightPuzzles(new UniformCostSearch(), states);
 		
