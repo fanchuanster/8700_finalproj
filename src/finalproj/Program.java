@@ -19,8 +19,12 @@ import aima.core.search.framework.SearchForActions;
 import aima.core.search.framework.problem.Problem;
 import aima.core.search.framework.qsearch.GraphSearch;
 import aima.core.search.framework.qsearch.TreeSearch;
+import aima.core.search.informed.AStarEvaluationFunction;
 import aima.core.search.informed.AStarSearch;
 import aima.core.search.informed.GreedyBestFirstSearch;
+import aima.core.search.informed.RecursiveBestFirstSearch;
+import aima.core.search.uninformed.BreadthFirstSearch;
+import aima.core.search.uninformed.UniformCostSearch;
 
 public class Program {
 	
@@ -105,14 +109,15 @@ public class Program {
 		
 		int[][] states = getInitialStates(1);
 		
-//		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(misplacedhf)), states);
-//		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
-		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
-		testEightPuzzles(new AStarSearch(new TreeSearch(), euclideanhf), states);
+		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
+		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(misplacedhf)), states);
+		
+//		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
+//		testEightPuzzles(new AStarSearch(new TreeSearch(), euclideanhf), states);
 		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
 		
-//		testEightPuzzles(new BreadthFirstSearch(), states);
-//		testEightPuzzles(new UniformCostSearch(), states);
+		testEightPuzzles(new BreadthFirstSearch(), states);
+		testEightPuzzles(new UniformCostSearch(), states);
 		
 //		
 
