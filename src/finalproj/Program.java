@@ -114,18 +114,19 @@ public class Program {
 		
 		ManhattanHeuristicFunction hf = new ManhattanHeuristicFunction();
 		MisplacedTilleHeuristicFunction misplacedhf = new MisplacedTilleHeuristicFunction();
+		EuclideanDistanceHeuristicFunction euclideanhf = new EuclideanDistanceHeuristicFunction();
 		
 		int[][] states = getInitialStates(1);
 		
 //		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(misplacedhf)), states);
 //		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
 		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
-		testEightPuzzles(new AStarSearch(new TreeSearch(), misplacedhf), states);
+		testEightPuzzles(new AStarSearch(new TreeSearch(), euclideanhf), states);
 		
-		testEightPuzzles(new BreadthFirstSearch(), states);
+//		testEightPuzzles(new BreadthFirstSearch(), states);
 //		testEightPuzzles(new UniformCostSearch(), states);
 		
-		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
+//		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
 
 		System.out.println();
 	}
