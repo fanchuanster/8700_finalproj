@@ -1,19 +1,14 @@
 package finalproj;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.List;
+
 import java.util.Properties;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 import java.util.stream.IntStream;
 
-import aima.core.agent.Action;
-import aima.core.environment.eightpuzzle.BidirectionalEightPuzzleProblem;
 import aima.core.environment.eightpuzzle.EightPuzzleBoard;
 import aima.core.environment.eightpuzzle.EightPuzzleFunctionFactory;
 import aima.core.environment.eightpuzzle.EightPuzzleGoalTest;
@@ -21,20 +16,11 @@ import aima.core.environment.eightpuzzle.ManhattanHeuristicFunction;
 import aima.core.environment.eightpuzzle.MisplacedTilleHeuristicFunction;
 import aima.core.search.framework.SearchAgent;
 import aima.core.search.framework.SearchForActions;
-import aima.core.search.framework.SearchForStates;
 import aima.core.search.framework.problem.Problem;
 import aima.core.search.framework.qsearch.GraphSearch;
 import aima.core.search.framework.qsearch.TreeSearch;
-import aima.core.search.informed.AStarEvaluationFunction;
 import aima.core.search.informed.AStarSearch;
-import aima.core.search.informed.GreedyBestFirstEvaluationFunction;
 import aima.core.search.informed.GreedyBestFirstSearch;
-import aima.core.search.informed.RecursiveBestFirstSearch;
-import aima.core.search.local.HillClimbingSearch;
-import aima.core.search.local.SimulatedAnnealingSearch;
-import aima.core.search.uninformed.BreadthFirstSearch;
-import aima.core.search.uninformed.UniformCostSearch;
-import common.Util;
 
 public class Program {
 	
@@ -116,17 +102,19 @@ public class Program {
 		MisplacedTilleHeuristicFunction misplacedhf = new MisplacedTilleHeuristicFunction();
 		EuclideanDistanceHeuristicFunction euclideanhf = new EuclideanDistanceHeuristicFunction();
 		
+		
 		int[][] states = getInitialStates(1);
 		
 //		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(misplacedhf)), states);
 //		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
 		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
 		testEightPuzzles(new AStarSearch(new TreeSearch(), euclideanhf), states);
+		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
 		
 //		testEightPuzzles(new BreadthFirstSearch(), states);
 //		testEightPuzzles(new UniformCostSearch(), states);
 		
-//		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
+//		
 
 		System.out.println();
 	}
