@@ -33,11 +33,12 @@ import aima.core.search.informed.RecursiveBestFirstSearch;
 import aima.core.search.local.HillClimbingSearch;
 import aima.core.search.local.SimulatedAnnealingSearch;
 import aima.core.search.uninformed.BreadthFirstSearch;
+import aima.core.search.uninformed.UniformCostSearch;
 import common.Util;
 
 public class Program {
 	
-	private static void testEightPuzzle(SearchForActions search, EightPuzzleBoard initialState) {        
+	private static void testEightPuzzles(SearchForActions search, EightPuzzleBoard initialState) {        
 		String[] nameparts = search.toString().split("\\.");
 		System.out.println("\ntestEightPuzzle search with " + nameparts[nameparts.length - 1]);
 		
@@ -58,7 +59,7 @@ public class Program {
 	
 	private static void testEightPuzzles(SearchForActions search, int[][] initialStates) {
 		for (final int[] state:initialStates) {
-			testEightPuzzle(search, new EightPuzzleBoard(state));
+			testEightPuzzles(search, new EightPuzzleBoard(state));
 		}
 	}
 
@@ -75,6 +76,11 @@ public class Program {
 //	4 3 2 
 //	6 5 0
 
+	/**
+	 * Create an array of initial states
+	 * @param n indicates how many states to create
+	 * @return an array of the initial states created
+	 */
 	private static int[][] getInitialStates(int n) {
 		final String STATES_FILE = "resources/solvable_initial_states.txt";
 		
@@ -102,19 +108,22 @@ public class Program {
 		
 		return null;
 	}
+	
 	public static void main(String[] args) {
 		
 		ManhattanHeuristicFunction hf = new ManhattanHeuristicFunction();
+		MisplacedTilleHeuristicFunction misplacedhf = new MisplacedTilleHeuristicFunction();
 		
-		int[][] states = getInitialStates(2);
+		int[][] states = getInitialStates(1);
 		
-//		testEightPuzzle(new RecursiveBestFirstSearch(new AStarEvaluationFunction(hf)), initstate);
-		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
-		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
-//		testEightPuzzle(new GreedyBestFirstSearch(new GraphSearch(), hf), initstate);
-//		
-//		testEightPuzzle(new BreadthFirstSearch(new GraphSearch()), initstate);
-//		eightPuzzleAStarManhattanDemo(unresolvable_initstate);
+//		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(hf)), states);
+//		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
+//		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
+		testEightPuzzles(new BreadthFirstSearch(), states);
+		testEightPuzzles(new UniformCostSearch(), states);
+		
+//		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
+
 		System.out.println();
 	}
 }
