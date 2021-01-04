@@ -38,7 +38,8 @@ import common.Util;
 
 public class Program {
 	
-	private static void testEightPuzzles(SearchForActions search, EightPuzzleBoard initialState) {        
+	private static void testEightPuzzles(SearchForActions search, EightPuzzleBoard initialState) {
+		System.out.println("Initial state:\n" + initialState.toString());
 		String[] nameparts = search.toString().split("\\.");
 		System.out.println("\ntestEightPuzzle search with " + nameparts[nameparts.length - 1]);
 		
@@ -116,13 +117,13 @@ public class Program {
 		
 		int[][] states = getInitialStates(1);
 		
-//		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(hf)), states);
+		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(misplacedhf)), states);
 //		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
-//		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
+		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
 		testEightPuzzles(new BreadthFirstSearch(), states);
-		testEightPuzzles(new UniformCostSearch(), states);
+//		testEightPuzzles(new UniformCostSearch(), states);
 		
-//		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
+		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
 
 		System.out.println();
 	}
