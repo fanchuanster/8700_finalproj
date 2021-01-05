@@ -109,17 +109,25 @@ public class Program {
 		
 		int[][] states = getInitialStates(1);
 		
-		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
-		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(misplacedhf)), states);
+
+		
+//		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
+		
+//		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(hf)), states);
+//		testEightPuzzles(new RecursiveBestFirstSearch(new AStarEvaluationFunction(hf)), states);
 		
 //		testEightPuzzles(new AStarSearch(new TreeSearch(), hf), states);
 //		testEightPuzzles(new AStarSearch(new TreeSearch(), euclideanhf), states);
-		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
+//		testEightPuzzles(new GreedyBestFirstSearch(new GraphSearch(), hf), states);
+//		testEightPuzzles(new GreedyBestFirstSearch(new TreeSearch(), hf), states);
 		
-		testEightPuzzles(new BreadthFirstSearch(), states);
-		testEightPuzzles(new UniformCostSearch(), states);
+//		testEightPuzzles(new BreadthFirstSearch(), states);
+//		testEightPuzzles(new UniformCostSearch(), states);
 		
-//		
+		// # III
+//		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
+//		testEightPuzzles(new AStarSearch(new GraphSearch(), misplacedhf), states);
+//		testEightPuzzles(new AStarSearch(new GraphSearch(), euclideanhf), states);
 
 		System.out.println();
 	}
