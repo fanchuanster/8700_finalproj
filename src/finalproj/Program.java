@@ -125,9 +125,9 @@ public class Program {
 //		testEightPuzzles(new UniformCostSearch(), states);
 		
 		// # III
-//		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
-//		testEightPuzzles(new AStarSearch(new GraphSearch(), misplacedhf), states);
-//		testEightPuzzles(new AStarSearch(new GraphSearch(), euclideanhf), states);
+		testEightPuzzles(new AStarSearch(new GraphSearch(), hf), states);
+		testEightPuzzles(new AStarSearch(new GraphSearch(), misplacedhf), states);
+		testEightPuzzles(new AStarSearch(new GraphSearch(), euclideanhf), states);
 
 		System.out.println();
 	}
